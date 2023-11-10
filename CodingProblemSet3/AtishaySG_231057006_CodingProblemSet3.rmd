@@ -1,0 +1,65 @@
+```{r}
+library(ggplot2)
+library(dplyr)
+library(patchwork)
+```
+```{r}
+userA = read.delim2(file = "D://APS//APS_AIML//CodingProblemSet3//personKeyTimingA.txt", header = TRUE, sep = "\t", dec = ",")
+userB = read.delim2(file = "D://APS//APS_AIML//CodingProblemSet3//personKeyTimingB.txt", header = TRUE, sep = "\t", dec = ",")
+```
+
+```{r}
+print(userA)
+```
+```{r}
+str(userA)
+```
+```{r}
+dfUserA = as.data.frame(userA)
+colnames(dfUserA) = c('Time')
+```
+
+```{r}
+pA = ggplot(data = dfUserA) +
+  geom_histogram(aes(x = timestamp, y = after_stat(letters)),
+  breaks = seq(mu_Male-4*sigma_Male, mu_Male+4*sigma_Male, by = delta),
+  colour = 'black', fill = 'steelblue', alpha = 0.4) +
+  stat_function(fun = dnorm, args = list(mean = mean(dfHeights$MaleHeight), sd = sd(dfHeights$MaleHeight))) +
+  labs(x = 'Height (cm)', y = 'Density')
+```
+
+```{r}
+# Convert the time column to numeric
+userA$time = as.numeric(userA$time)
+
+# Plot density histogram for User A
+ggplot(data = dfUserA, aes(x = diff(time))) +
+  geom_histogram(aes(y = ..density..), bins = 30, alpha = 0.5, fill = "blue", color = "black") +
+  labs(title = "Density Histogram of Keystroke Times for User A",
+       x = "Keystroke Time (milliseconds)",
+       y = "Density") +
+  theme_minimal()
+
+```
+
+```{r}
+ggplot(data = dfUserA, aes(x = diff(time))) +
+  geom_histogram(aes(y = ..density..), bins = 30, alpha = 0.5, fill = "blue", color = "black") +
+  labs(title = "Density Histogram of Keystroke Times for User A",
+       x = "Keystroke Time (milliseconds)",
+       y = "Density") +
+  theme_minimal()
+```
+
+
+```{r}
+# Plot density histogram for user A
+ggplot(userA, aes(x = diff(time))) +
+  geom_histogram(aes(y = ..density..), bins = 30, alpha = 0.5, fill = "blue", color = "black") +
+  labs(title = "Density Histogram of Keystroke Times for User A",
+       x = "Keystroke Time (milliseconds)",
+       y = "Density") +
+  theme_minimal()
+```
+
+
