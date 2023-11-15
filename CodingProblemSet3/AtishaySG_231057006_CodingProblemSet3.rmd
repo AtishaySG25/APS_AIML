@@ -34,3 +34,14 @@ ggplot(data = dfUserA, aes(x = diff(time))) +
 ```
 
 
+```{r}
+t = seq(0, 3)
+t
+lambda = (365 * 5 * 4)/5000
+lambda
+```
+```{r}
+F_x = 1 - (exp)(-lambda * t) 
+mean(F_x)
+```
+
